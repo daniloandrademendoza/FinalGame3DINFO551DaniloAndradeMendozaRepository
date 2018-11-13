@@ -31,7 +31,7 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+       
         if (Input.GetKey(KeyCode.UpArrow))
         {
             if (Input.GetKey(KeyCode.R))
@@ -103,13 +103,15 @@ public class Player : MonoBehaviour
             animationPlayer.Play("punch");
             boxColliderPlayer.size = new Vector3(0.75f, 1.85f, 1.25f);
             boxColliderPlayer.center = new Vector3(0f, 1f, 0.5f);
-            StartCoroutine("Wait");
-            boxColliderPlayer.size = new Vector3(.75f, 1.9f, .75f);
-            boxColliderPlayer.center = new Vector3(0f,.95f, 0f);
+           // StartCoroutine(Wait());
+           
         }
+       
         else if (Input.GetKey(KeyCode.K))
         {
             animationPlayer.Play("kick");
+            boxColliderPlayer.size = new Vector3(1.75f, 2f, 1.75f);
+            boxColliderPlayer.center = new Vector3(0.5f, 1.5f, 0.5f);
         }
         else if (Input.GetKey(KeyCode.J))
         {
@@ -125,18 +127,22 @@ public class Player : MonoBehaviour
         {
             rigidBodyPlayer.useGravity = false;
         }
-       
+        if (!animationPlayer.IsPlaying("punch")&& !animationPlayer.IsPlaying("kick"))
+        {
+            boxColliderPlayer.size = new Vector3(.75f, 1.9f, .75f);
+            boxColliderPlayer.center = new Vector3(0f, .95f, 0f);
+        }
     }
     private void OnCollisionEnter(Collision collision)
     {
         attack = attack + (1 / 10);
         Debug.Log(attack);
     }
-    IEnumerator Wait()
-    {
-        for (float i = 1f; i >= 0; i = i - 0.1f)
-        {
-            yield return new WaitForSeconds(.1f); 
-        }
-    }
+   // IEnumerator Wait()
+   // {
+        
+       
+        //    yield return new WaitForSeconds(60); 
+        
+    //}
 }

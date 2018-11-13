@@ -6,7 +6,7 @@ public class Monster : MonoBehaviour {
     private int lifePoints;
 	// Use this for initialization
 	void Start () {
-        lifePoints = 13;
+        lifePoints = 10;
 	}
 	
 	// Update is called once per frame
@@ -16,25 +16,28 @@ public class Monster : MonoBehaviour {
 
     private void OnCollisionEnter(Collision collision)
     {
-        lifePoints--;
-        Debug.Log(lifePoints);
-        StartCoroutine("Wait");
-        if(lifePoints == 0)
+        if (collision.gameObject.name == "MAX" && (collision.gameObject.GetComponent<Animation>().IsPlaying("punch")|| collision.gameObject.GetComponent<Animation>().IsPlaying("kick")))
         {
-            this.gameObject.SetActive(false);
+            lifePoints--;
+            Debug.Log(lifePoints);
+            //StartCoroutine("Wait");
+            if (lifePoints == 0)
+            {
+                this.gameObject.SetActive(false);
+            }
         }
        
     }
-    IEnumerator Wait()
-    {
-        for(float i=1f; i>=0; i=i-0.1f)
-        {
-            yield return null;
-        }
-    }
-    private void OnCollisionExit(Collision collision)
-    {
-        StartCoroutine("Wait");
-    }
+    //IEnumerator Wait()
+    //{
+    //    for(float i=1f; i>=0; i=i-0.1f)
+    //    {
+    //        yield return null;
+    //    }
+    //}
+    //private void OnCollisionExit(Collision collision)
+    //{
+    //    StartCoroutine("Wait");
+    //}
     
 }
