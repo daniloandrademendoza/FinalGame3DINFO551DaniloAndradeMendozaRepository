@@ -107,8 +107,9 @@ public class Player : MonoBehaviour
         else if (Input.GetKey(KeyCode.J))
         {
             rigidBodyPlayer.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+            animationPlayer.Play("jump");
         }
-        if(this.transform.position.y >=1)
+        if (this.transform.position.y >= 1)
         {
             rigidBodyPlayer.useGravity = true;
         }
