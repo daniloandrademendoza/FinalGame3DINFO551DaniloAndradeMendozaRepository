@@ -11,9 +11,9 @@ public class Player : MonoBehaviour
     public LayerMask groundLayers;
     private float jumpForce;
     private BoxCollider boxColliderPlayer;
-   
     private bool isGrounded;
-    private float attack;
+    private float punch;
+    private float kick;
 
     // Use this for initialization
     void Start()
@@ -24,8 +24,8 @@ public class Player : MonoBehaviour
         animationPlayer = GetComponent<Animation>();
         jumpForce = 2.5f;
         boxColliderPlayer = GetComponent<BoxCollider>();
-     
-        attack = 0;
+        punch = 0f;
+        kick = 0f;
     }
 
     // Update is called once per frame
@@ -135,8 +135,15 @@ public class Player : MonoBehaviour
     }
     private void OnCollisionEnter(Collision collision)
     {
-        attack = attack + (1 / 10);
-        Debug.Log(attack);
+        if (this.animationPlayer.Play("punch"))
+        {
+            punch = punch + (1 / 10);
+        }
+        else if(this.animationPlayer.Play("kick"))
+        {
+            kick = kick + (1 / 10);
+        }
+        
     }
    // IEnumerator Wait()
    // {
