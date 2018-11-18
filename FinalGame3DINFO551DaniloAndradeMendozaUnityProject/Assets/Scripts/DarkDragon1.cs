@@ -8,14 +8,14 @@ public class DarkDragon1 : Dragon {
         StartCoroutine(this.coroutine);
         if (!this.animatorMonster.GetCurrentAnimatorStateInfo(0).IsName("atk01"))
         {
-            this.boxColliderDragon.size = new Vector3(this.boxColliderDragon.size.x, this.boxColliderDragon.size.y,this.zStartBoxCollider);
+            this.boxColliderDragon.size = new Vector3(this.xStartBoxCollider, this.yStartBoxCollider,this.zStartBoxCollider);
         }
     }
     public override IEnumerator WaitAndAttack(float waitTime)
     {
         yield return new WaitForSeconds(waitTime);
         this.animatorMonster.Play("atk01");
-        this.boxColliderDragon.size = new Vector3(this.boxColliderDragon.size.x,this.boxColliderDragon.size.y,this.zNewBoxCollider);
+        this.boxColliderDragon.size = new Vector3(this.xStartBoxCollider,this.yStartBoxCollider,this.zNewBoxCollider);
     }
 
     public override void OnCollisionEnter(Collision collision)
