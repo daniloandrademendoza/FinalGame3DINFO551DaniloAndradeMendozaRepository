@@ -6,61 +6,35 @@ public class DarkDragon : MonoBehaviour {
     private int lifePoints;
     private Animator animatorMonster;
     private IEnumerator coroutine;
+    private float waitTime;
+    private BoxCollider boxColliderDragon;
+    private float zNewBoxCollider;
+    private float zStartBoxCollider;
     // Use this for initialization
     void Start () {
         lifePoints = 10;
         animatorMonster = GetComponent<Animator>();
-       
+        waitTime = 15f;
+        boxColliderDragon = GetComponent<BoxCollider>();
+        zNewBoxCollider = 2.5f;
+        zStartBoxCollider = 1f;
     }
    
     // Update is called once per frame
     void Update () {
-        coroutine = WaitAndPrint(20f, "atk01");
+      
+        coroutine = WaitAndAttack(waitTime);
         StartCoroutine(coroutine);
-        coroutine = WaitAndPrint(40f, "atk02");
-        StartCoroutine(coroutine);
-        coroutine = WaitAndPrint(60f, "atk03");
-        StartCoroutine(coroutine);
-        coroutine = WaitAndPrint(80f, "hit");
-        StartCoroutine(coroutine);
-        coroutine = WaitAndPrint(100f, "run");
-        StartCoroutine(coroutine);
-        coroutine = WaitAndPrint(120f, "idle");
-        StartCoroutine(coroutine);
-
+        if (!animatorMonster.GetCurrentAnimatorStateInfo(0).IsName("atk01"))
+        {
+            boxColliderDragon.size = new Vector3(boxColliderDragon.size.x, boxColliderDragon.size.y,zStartBoxCollider);
+        }
     }
-    private IEnumerator WaitAndPrint(float waitTime, string attack)
+    private IEnumerator WaitAndAttack(float waitTime)
     {
-        if (attack == "atk01")
-        {
-            yield return new WaitForSeconds(waitTime);
-            animatorMonster.Play("atk01");
-        }
-        else if (attack == "atk02")
-        {
-            yield return new WaitForSeconds(waitTime);
-            animatorMonster.Play("atk02");
-        }
-        else if (attack == "atk03")
-        {
-            yield return new WaitForSeconds(waitTime);
-            animatorMonster.Play("atk03");
-        }
-        else if (attack == "hit")
-        {
-            yield return new WaitForSeconds(waitTime);
-            animatorMonster.Play("atk03");
-        }
-        else if (attack == "run")
-        {
-            yield return new WaitForSeconds(waitTime);
-            animatorMonster.Play("atk03");
-        }
-        else if (attack == "idle")
-        {
-            yield return new WaitForSeconds(waitTime);
-            animatorMonster.Play("atk03");
-        }
+        yield return new WaitForSeconds(waitTime);
+        animatorMonster.Play("atk01");
+        boxColliderDragon.size = new Vector3(boxColliderDragon.size.x,boxColliderDragon.size.y,zNewBoxCollider);
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -69,7 +43,7 @@ public class DarkDragon : MonoBehaviour {
         {
             lifePoints--;
             Debug.Log(lifePoints);
-            //StartCoroutine("Wait");
+           
             if (lifePoints == 0)
             {
                 animatorMonster.Play("die");
@@ -78,16 +52,6 @@ public class DarkDragon : MonoBehaviour {
         }
        
     }
-    //IEnumerator Wait()
-    //{
-    //    for(float i=1f; i>=0; i=i-0.1f)
-    //    {
-    //        yield return null;
-    //    }
-    //}
-    //private void OnCollisionExit(Collision collision)
-    //{
-    //    StartCoroutine("Wait");
-    //}
+  
     
 }
