@@ -10,6 +10,8 @@ public class DarkDragon1 : Dragon {
         {
             this.boxColliderDragon.size = new Vector3(this.xStartBoxCollider, this.yStartBoxCollider,this.zStartBoxCollider);
         }
+        
+
     }
     public override IEnumerator WaitAndAttack(float waitTime)
     {
@@ -23,12 +25,17 @@ public class DarkDragon1 : Dragon {
         if (collision.gameObject.name == "MAX" && (collision.gameObject.GetComponent<Animation>().IsPlaying("punch")|| collision.gameObject.GetComponent<Animation>().IsPlaying("kick")))
         {
             this.lifePoints--;
+            
             if (this.lifePoints == 0)
             {
                 this.animatorMonster.Play("die");
                 this.gameObject.SetActive(false);
+                this.lifePoints = 10;
+                this.gameObject.SetActive(true);
+                
             }
         }
+        
        
     }
   

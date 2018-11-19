@@ -9,8 +9,12 @@ public class DarkDragon4 : Dragon {
         StartCoroutine(this.coroutine);
         if (!this.animatorMonster.GetCurrentAnimatorStateInfo(0).IsName("hit"))
         {
-           
             this.boxColliderDragon.size = new Vector3(this.xStartBoxCollider, this.yStartBoxCollider, this.zStartBoxCollider);
+        }
+        if (this.lifePoints == 0)
+        {
+            this.lifePoints = 10;
+            this.gameObject.SetActive(true);
         }
     }
     public override IEnumerator WaitAndAttack(float waitTime)
@@ -29,6 +33,8 @@ public class DarkDragon4 : Dragon {
             {
                 this.animatorMonster.Play("die");
                 this.gameObject.SetActive(false);
+                this.lifePoints = 10;
+                this.gameObject.SetActive(true);
             }
         }
 

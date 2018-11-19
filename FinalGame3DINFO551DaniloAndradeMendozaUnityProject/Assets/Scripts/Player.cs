@@ -14,7 +14,7 @@ public class Player : MonoBehaviour
     private bool isGrounded;
     private float punch;
     private float kick;
-
+    private int lifePoints;
     // Use this for initialization
     void Start()
     {
@@ -26,6 +26,7 @@ public class Player : MonoBehaviour
         boxColliderPlayer = GetComponent<BoxCollider>();
         punch = 0f;
         kick = 0f;
+        lifePoints = 100;
     }
 
     // Update is called once per frame
@@ -135,13 +136,25 @@ public class Player : MonoBehaviour
     }
     private void OnCollisionEnter(Collision collision)
     {
-        if (this.animationPlayer.Play("punch"))
+        
+        if (Input.GetKey(KeyCode.P))
         {
+           
             punch = punch + (1 / 10);
         }
-        else if(this.animationPlayer.Play("kick"))
+        else if(Input.GetKey(KeyCode.K))
         {
             kick = kick + (1 / 10);
+        }
+        else if (collision.gameObject.name == "DarkDragon1"|| collision.gameObject.name == "DarkDragon2"|| collision.gameObject.name == "DarkDragon3"|| collision.gameObject.name == "DarkDragon4"|| collision.gameObject.name == "DarkDragon5"|| collision.gameObject.name == "DarkDragon6"|| collision.gameObject.name == "DarkDragon7"|| collision.gameObject.name == "DarkDragon8"|| collision.gameObject.name == "DarkDragon9"|| collision.gameObject.name == "DarkDragon10")
+        {
+            lifePoints--;
+            Debug.Log(lifePoints);
+        }
+        if(lifePoints==0)
+        {
+            this.animationPlayer.Play("death");
+            this.gameObject.SetActive(false);
         }
         
     }
