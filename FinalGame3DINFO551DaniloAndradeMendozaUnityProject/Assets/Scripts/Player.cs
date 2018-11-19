@@ -10,8 +10,8 @@ public class Player : MonoBehaviour
     private Animation animationPlayer;
     private float jumpForce;
     private BoxCollider boxColliderPlayer;
-    private float punch;
-    private float kick;
+    public int punch;
+    public int kick;
     public int lifePoints;
     // Use this for initialization
     void Start()
@@ -22,8 +22,8 @@ public class Player : MonoBehaviour
         animationPlayer = GetComponent<Animation>();
         jumpForce = 2.5f;
         boxColliderPlayer = GetComponent<BoxCollider>();
-        punch = 0f;
-        kick = 0f;
+        punch = 0;
+        kick = 0;
         lifePoints = 100;
     }
 
@@ -137,12 +137,12 @@ public class Player : MonoBehaviour
         
         if (Input.GetKey(KeyCode.P))
         {
-           
-            punch = punch + (1 / 10);
+            Debug.Log(punch);
+            punch = punch + 1;
         }
         else if(Input.GetKey(KeyCode.K))
         {
-            kick = kick + (1 / 10);
+            kick = kick + 1;
         }
         else if (collision.gameObject.name == "DarkDragon1"|| collision.gameObject.name == "DarkDragon2"|| collision.gameObject.name == "DarkDragon3"|| collision.gameObject.name == "DarkDragon4"|| collision.gameObject.name == "DarkDragon5"|| collision.gameObject.name == "DarkDragon6"|| collision.gameObject.name == "DarkDragon7"|| collision.gameObject.name == "DarkDragon8"|| collision.gameObject.name == "DarkDragon9"|| collision.gameObject.name == "DarkDragon10")
         {
