@@ -11,11 +11,7 @@ public class DarkDragon4 : Dragon {
         {
             this.boxColliderDragon.size = new Vector3(this.xStartBoxCollider, this.yStartBoxCollider, this.zStartBoxCollider);
         }
-        if (this.lifePoints == 0)
-        {
-            this.lifePoints = 10;
-            this.gameObject.SetActive(true);
-        }
+        
     }
     public override IEnumerator WaitAndAttack(float waitTime)
     {

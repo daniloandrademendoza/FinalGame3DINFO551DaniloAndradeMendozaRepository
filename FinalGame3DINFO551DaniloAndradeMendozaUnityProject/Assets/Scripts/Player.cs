@@ -8,13 +8,11 @@ public class Player : MonoBehaviour
     private float playerSpeed;
     private float playerSpeedRun;
     private Animation animationPlayer;
-    public LayerMask groundLayers;
     private float jumpForce;
     private BoxCollider boxColliderPlayer;
-    private bool isGrounded;
     private float punch;
     private float kick;
-    private int lifePoints;
+    public int lifePoints;
     // Use this for initialization
     void Start()
     {
