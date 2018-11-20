@@ -1,18 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.IO;
+using System.Xml.Serialization;
 using UnityEngine;
 
 public class GameSave : MonoBehaviour {
     public GameObject player1;
-    public Player player2;
 	void Start () {
         RestoreGame();
 
     }
     void RestoreGame()
     {
-        string 
-            p = PlayerPrefs.GetString("PlayerLocation");
+        string p = PlayerPrefs.GetString("PlayerLocation");
         if(p!=null && p.Length >0)
         {
             SavePosition s = JsonUtility.FromJson<SavePosition>(p);
@@ -27,10 +27,9 @@ public class GameSave : MonoBehaviour {
                 playerPoints.kick = s.kick;
                 playerPoints.punch = s.punch;
                 playerPoints.lifePoints = s.lifePoints;
-                player2.kick = playerPoints.kick;
-                player2.punch = playerPoints.punch;
-                player2.lifePoints = playerPoints.lifePoints;
-                Debug.Log(player2.punch);
+                player1.GetComponent<Player>().kick = playerPoints.kick;
+                player1.GetComponent<Player>().punch = playerPoints.punch;
+                player1.GetComponent<Player>().lifePoints = playerPoints.lifePoints;
 
             }
         }
@@ -40,6 +39,10 @@ public class GameSave : MonoBehaviour {
         {
             SaveGame();
         }
+        //else if(Input.GetKeyDown(KeyCode.U))
+        //{
+        //    UnsaveGame();
+        //}
 	}
     void SaveGame()
     {
@@ -47,11 +50,22 @@ public class GameSave : MonoBehaviour {
         s.x = player1.transform.position.x;
         s.y = player1.transform.position.y;
         s.z = player1.transform.position.z;
-        s.kick = player2.kick;
-        s.punch = player2.punch;
-        s.lifePoints = player2.lifePoints;
+        s.kick = player1.GetComponent<Player>().kick;
+        s.punch = player1.GetComponent<Player>().punch;
+        s.lifePoints = player1.GetComponent<Player>().lifePoints;
         string json = JsonUtility.ToJson(s);
         Debug.Log(json);
         PlayerPrefs.SetString("PlayerLocation", json);
     }
+    //public static T UnsaveGame<T>(string xml)
+    //{
+
+    //    T obj = default(T);
+    //    XmlSerializer serializer = new XmlSerializer(typeof(T));
+    //    using (TextReader textReader = new StringReader(xml))
+    //    {
+    //        obj = (T)serializer.Deserialize(textReader);
+    //    }
+    //    return obj;
+    //}
 }
