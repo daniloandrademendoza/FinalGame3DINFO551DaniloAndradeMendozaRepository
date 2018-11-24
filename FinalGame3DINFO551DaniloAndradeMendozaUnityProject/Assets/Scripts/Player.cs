@@ -6,9 +6,9 @@ public class Player : MonoBehaviour
 {
     private Rigidbody rigidBodyPlayer;
     private float playerSpeed;
-    private float playerSpeedRun;
+    public float playerSpeedRun;
     private Animation animationPlayer;
-    private float jumpForce;
+    public float jumpForce;
     private BoxCollider boxColliderPlayer;
     public int punch;
     public int kick;

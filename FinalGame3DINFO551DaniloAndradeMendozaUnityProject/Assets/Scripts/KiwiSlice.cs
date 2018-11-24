@@ -8,12 +8,17 @@ public class KiwiSlice : Fruit {
         this.lifePointsFood = 4;
         this.lifePointsNeeded = 96;
     }
+    public void IncreaseRunSlice(Collision collision)
+    {
+        collision.gameObject.GetComponent<Player>().playerSpeedRun = 12.5f;
+    }
     public override void OnCollisionEnter(Collision collision)
     {
         Player player1 = collision.gameObject.GetComponent<Player>();
         if (collision.gameObject.name == "MAX" && player1.lifePoints <= this.lifePointsNeeded)
         {
             player1.lifePoints = player1.lifePoints + this.lifePointsFood;
+            IncreaseRunSlice(collision);
             this.gameObject.SetActive(false);
         }
     }
