@@ -6,4 +6,5 @@ public class SavePosition {
     public int punch;
     public int kick;
     public int lifePoints;
+    public float yRotation;
 }

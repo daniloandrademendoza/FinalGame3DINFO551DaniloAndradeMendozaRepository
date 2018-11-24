@@ -31,8 +31,7 @@ public class DarkDragon3 : Dragon {
             {
                 this.animatorMonster.Play("die");
                 this.gameObject.SetActive(false);
-                this.lifePoints = 10;
-                this.gameObject.SetActive(true);
+            
             }
         }
 
