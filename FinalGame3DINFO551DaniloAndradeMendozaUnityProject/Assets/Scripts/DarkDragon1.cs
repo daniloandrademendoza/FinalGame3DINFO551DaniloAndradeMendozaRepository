@@ -4,14 +4,7 @@ using UnityEngine;
 
 public class DarkDragon1 : Dragon {
     public override void Update () {
-        this.coroutine = WaitAndAttack(this.waitTime);
-        StartCoroutine(this.coroutine);
-        if (!this.animatorMonster.GetCurrentAnimatorStateInfo(0).IsName("atk01"))
-        {
-            this.boxColliderDragon.size = new Vector3(this.xStartBoxCollider, this.yStartBoxCollider,this.zStartBoxCollider);
-        }
-        
-
+            StartCoroutine(WaitAndAttack(this.waitTime));
     }
     public override IEnumerator WaitAndAttack(float waitTime)
     {
@@ -19,24 +12,26 @@ public class DarkDragon1 : Dragon {
         this.animatorMonster.Play("atk01");
         this.boxColliderDragon.size = new Vector3(this.xStartBoxCollider,this.yStartBoxCollider,this.zNewBoxCollider);
     }
-
+    public IEnumerator Wait(float waitTime, Collision collision)
+    {
+        collision.gameObject.GetComponent<Player>().enabled = false;
+        yield return new WaitForSeconds(waitTime);
+        collision.gameObject.GetComponent<Player>().enabled = true;
+    }
     public override void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.name == "MAX" && (collision.gameObject.GetComponent<Animation>().IsPlaying("punch")|| collision.gameObject.GetComponent<Animation>().IsPlaying("kick")))
         {
             this.lifePoints--;
-            
+            Debug.Log(this.lifePoints);
+            StartCoroutine(Wait(this.waitTime, collision));
             if (this.lifePoints == 0)
             {
                 this.animatorMonster.Play("die");
                 this.gameObject.SetActive(false);
-                
-                
             }
         }
-        
-       
     }
-  
-    
 }
+
+

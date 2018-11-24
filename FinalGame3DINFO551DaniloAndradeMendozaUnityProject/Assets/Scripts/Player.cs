@@ -132,12 +132,12 @@ public class Player : MonoBehaviour
             boxColliderPlayer.center = new Vector3(0f, .95f, 0f);
         }
     }
-    private void OnCollisionEnter(Collision collision)
+    public void OnCollisionEnter(Collision collision)
     {
         
         if (Input.GetKey(KeyCode.P))
         {
-            Debug.Log(punch);
+            
             punch = punch + 1;
         }
         else if(Input.GetKey(KeyCode.K))
@@ -147,7 +147,7 @@ public class Player : MonoBehaviour
         else if (collision.gameObject.name == "DarkDragon1"|| collision.gameObject.name == "DarkDragon2"|| collision.gameObject.name == "DarkDragon3"|| collision.gameObject.name == "DarkDragon4"|| collision.gameObject.name == "DarkDragon5"|| collision.gameObject.name == "DarkDragon6"|| collision.gameObject.name == "DarkDragon7"|| collision.gameObject.name == "DarkDragon8"|| collision.gameObject.name == "DarkDragon9"|| collision.gameObject.name == "DarkDragon10")
         {
             lifePoints--;
-            Debug.Log(lifePoints);
+            
         }
         if(lifePoints==0)
         {

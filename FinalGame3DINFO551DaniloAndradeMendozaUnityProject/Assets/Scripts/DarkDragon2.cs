@@ -11,7 +11,7 @@ public class DarkDragon2 : Dragon {
         {
             this.boxColliderDragon.size = new Vector3(this.xStartBoxCollider, this.yStartBoxCollider, this.zStartBoxCollider);
         }
-       
+
     }
     public override IEnumerator WaitAndAttack(float waitTime)
     {
@@ -19,12 +19,17 @@ public class DarkDragon2 : Dragon {
         this.animatorMonster.Play("atk02");
         this.boxColliderDragon.size = new Vector3(this.x2NewBoxCollider, this.y2NewBoxCollier, this.zNewBoxCollider);
     }
-
+    public void ThrowFarAway(Collision collision)
+    {
+        collision.gameObject.transform.position = new Vector3(collision.gameObject.transform.position.x - 5f, collision.gameObject.transform.position.y, collision.gameObject.transform.position.z);
+    }
     public override void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.name == "MAX" && (collision.gameObject.GetComponent<Animation>().IsPlaying("punch") || collision.gameObject.GetComponent<Animation>().IsPlaying("kick")))
         {
             this.lifePoints--;
+            Debug.Log(this.lifePoints);
+            ThrowFarAway(collision);
             if (this.lifePoints == 0)
             {
                 this.animatorMonster.Play("die");
