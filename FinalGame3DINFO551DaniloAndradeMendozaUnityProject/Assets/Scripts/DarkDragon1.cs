@@ -23,7 +23,6 @@ public class DarkDragon1 : Dragon {
         if (collision.gameObject.name == "MAX" && (collision.gameObject.GetComponent<Animation>().IsPlaying("punch")|| collision.gameObject.GetComponent<Animation>().IsPlaying("kick")))
         {
             this.lifePoints--;
-            Debug.Log(this.lifePoints);
             StartCoroutine(Wait(this.waitTime, collision));
             if (this.lifePoints == 0)
             {

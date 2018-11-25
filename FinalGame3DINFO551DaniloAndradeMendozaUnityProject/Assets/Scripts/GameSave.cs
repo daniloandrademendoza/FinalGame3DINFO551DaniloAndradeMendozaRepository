@@ -3,9 +3,15 @@ using System.Collections.Generic;
 using System.IO;
 using System.Xml.Serialization;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameSave : MonoBehaviour {
     public GameObject player1;
+    public GameObject[] gameObjects;
+    public Text lifePointsText;
+    public Text punchText;
+    public Text kickText;
+
     void Start () {
         RestoreGame();
     }
@@ -30,6 +36,9 @@ public class GameSave : MonoBehaviour {
                 player1.GetComponent<Player>().kick = playerPoints.kick;
                 player1.GetComponent<Player>().punch = playerPoints.punch;
                 player1.GetComponent<Player>().lifePoints = playerPoints.lifePoints;
+                lifePointsText.text = playerPoints.lifePoints.ToString();
+                punchText.text = playerPoints.punch.ToString();
+                kickText.text = playerPoints.kick.ToString();
                 player1.transform.eulerAngles = new Vector3(0f,playerPoints.yRotation,0f);
             }
         }
@@ -58,6 +67,21 @@ public class GameSave : MonoBehaviour {
         s.kick = player1.GetComponent<Player>().kick;
         s.punch = player1.GetComponent<Player>().punch;
         s.lifePoints = player1.GetComponent<Player>().lifePoints;
+        lifePointsText.text = s.lifePoints.ToString();
+        punchText.text = s.punch.ToString();
+        kickText.text = s.kick.ToString();
+        //GameObject[] gameObjects = GameObject.FindGameObjectsWithTag("Game");
+        //for (int i = 0; i < gameObjects.Length; i++)
+        //{
+        //    if(gameObjects[i].activeInHierarchy)
+        //    {
+
+        //    }
+        //    else if()
+        //    {
+
+        //    }
+        //}
         string json = JsonUtility.ToJson(s);
         Debug.Log(json);
         PlayerPrefs.SetString("PlayerLocation", json);
@@ -72,6 +96,9 @@ public class GameSave : MonoBehaviour {
         s.kick = 0;
         s.punch = 0;
         s.lifePoints = 100;
+        lifePointsText.text = s.lifePoints.ToString();
+        punchText.text = s.punch.ToString();
+        kickText.text = s.kick.ToString();
         string json = JsonUtility.ToJson(s);
        // s = JsonUtility.FromJson<SavePosition>(json);
         Debug.Log(json);
