@@ -13,7 +13,8 @@ public class Player : MonoBehaviour
     public int punch;
     public int kick;
     public int lifePoints;
-    // Use this for initialization
+    delegate void MyDelegate(string input);
+    MyDelegate myDelegate;
     void Start()
     {
         rigidBodyPlayer = GetComponent<Rigidbody>();
@@ -26,101 +27,45 @@ public class Player : MonoBehaviour
         kick = 0;
         lifePoints = 100;
     }
-
-    // Update is called once per frame
+    
     void Update()
     {
-       
+        myDelegate = Controls;
         if (Input.GetKey(KeyCode.UpArrow))
         {
-            if (Input.GetKey(KeyCode.R))
-            {
-                rigidBodyPlayer.velocity = new Vector3(rigidBodyPlayer.velocity.x, 0f, playerSpeedRun);
-                this.transform.eulerAngles = new Vector3(0f, 0f, 0f);
-                animationPlayer.Play("run");
-            }
-            else
-            {
-                rigidBodyPlayer.velocity = new Vector3(rigidBodyPlayer.velocity.x, 0f, playerSpeed);
-                this.transform.eulerAngles = new Vector3(0f, 0f, 0f);
-                animationPlayer.Play("walk");
-            }
+            myDelegate("up");
         }
         else if (Input.GetKey(KeyCode.LeftArrow))
         {
-            if (Input.GetKey(KeyCode.R))
-            {
-                rigidBodyPlayer.velocity = new Vector3(-playerSpeedRun, 0f, rigidBodyPlayer.velocity.z);
-                this.transform.eulerAngles = new Vector3(0f, -90f, 0f);
-                animationPlayer.Play("run");
-            }
-            else
-            {
-                rigidBodyPlayer.velocity = new Vector3(-playerSpeed, 0f, rigidBodyPlayer.velocity.z);
-                this.transform.eulerAngles = new Vector3(0f, -90f, 0f);
-                animationPlayer.Play("walk");
-            }
+            myDelegate("left");
         }
         else if (Input.GetKey(KeyCode.DownArrow))
         {
-            if (Input.GetKey(KeyCode.R))
-            {
-                rigidBodyPlayer.velocity = new Vector3(rigidBodyPlayer.velocity.x, 0f, -playerSpeedRun);
-                this.transform.eulerAngles = new Vector3(0f, 180f, 0f);
-                animationPlayer.Play("run");
-            }
-            else
-            {
-                rigidBodyPlayer.velocity = new Vector3(rigidBodyPlayer.velocity.x, 0f, -playerSpeed);
-                this.transform.eulerAngles = new Vector3(0f, 180f, 0f);
-                animationPlayer.Play("walk");
-            }
-
-
+            myDelegate("down");
         }
         else if (Input.GetKey(KeyCode.RightArrow))
         {
-            if (Input.GetKey(KeyCode.R))
-            {
-                rigidBodyPlayer.velocity = new Vector3(playerSpeedRun, 0f, rigidBodyPlayer.velocity.z);
-                this.transform.eulerAngles = new Vector3(0f, 90f, 0f);
-                animationPlayer.Play("run");
-            }
-            else
-            {
-                rigidBodyPlayer.velocity = new Vector3(playerSpeed, 0f, rigidBodyPlayer.velocity.z);
-                this.transform.eulerAngles = new Vector3(0f, 90f, 0f);
-                animationPlayer.Play("walk");
-            }
+            myDelegate("right");
         }
         else if (Input.GetKey(KeyCode.F))
         {
-            animationPlayer.Play("flip");
+            myDelegate("flip");
         }
         else if (Input.GetKey(KeyCode.P))
         {
-            animationPlayer.Play("punch");
-            boxColliderPlayer.size = new Vector3(0.75f, 1.85f, 1.25f);
-            boxColliderPlayer.center = new Vector3(0f, 1f, 0.5f);
-           // StartCoroutine(Wait());
-           
+            myDelegate("punch");
         }
-       
         else if (Input.GetKey(KeyCode.K))
         {
-            animationPlayer.Play("kick");
-            boxColliderPlayer.size = new Vector3(1.75f, 2f, 1.75f);
-            boxColliderPlayer.center = new Vector3(0.5f, 1.5f, 0.5f);
+            myDelegate("kick");
         }
         else if (Input.GetKey(KeyCode.J))
         {
-            rigidBodyPlayer.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
-            animationPlayer.Play("jump");
+            myDelegate("jump");
         }
         if (this.transform.position.y >= .1)
         {
             rigidBodyPlayer.useGravity = true;
-            //this.transform.position= new Vector3(this.transform.position.x,0f,this.transform.position.z);
         }
         else
         {
@@ -137,7 +82,6 @@ public class Player : MonoBehaviour
         
         if (Input.GetKey(KeyCode.P))
         {
-            
             punch = punch + 1;
         }
         else if(Input.GetKey(KeyCode.K))
@@ -156,11 +100,90 @@ public class Player : MonoBehaviour
         }
         
     }
-   // IEnumerator Wait()
-   // {
-        
-       
-        //    yield return new WaitForSeconds(60); 
-        
-    //}
+
+    void Controls(string input)
+    {
+        if (input == "up")
+        {
+            if (Input.GetKey(KeyCode.R))
+            {
+                rigidBodyPlayer.velocity = new Vector3(rigidBodyPlayer.velocity.x, 0f, playerSpeedRun);
+                this.transform.eulerAngles = new Vector3(0f, 0f, 0f);
+                animationPlayer.Play("run");
+            }
+            else
+            {
+                rigidBodyPlayer.velocity = new Vector3(rigidBodyPlayer.velocity.x, 0f, playerSpeed);
+                this.transform.eulerAngles = new Vector3(0f, 0f, 0f);
+                animationPlayer.Play("walk");
+            }
+        }
+        else if (input == "left")
+        {
+            if (Input.GetKey(KeyCode.R))
+            {
+                rigidBodyPlayer.velocity = new Vector3(-playerSpeedRun, 0f, rigidBodyPlayer.velocity.z);
+                this.transform.eulerAngles = new Vector3(0f, -90f, 0f);
+                animationPlayer.Play("run");
+            }
+            else
+            {
+                rigidBodyPlayer.velocity = new Vector3(-playerSpeed, 0f, rigidBodyPlayer.velocity.z);
+                this.transform.eulerAngles = new Vector3(0f, -90f, 0f);
+                animationPlayer.Play("walk");
+            }
+        }
+        else if (input == "down")
+        {
+            if (Input.GetKey(KeyCode.R))
+            {
+                rigidBodyPlayer.velocity = new Vector3(rigidBodyPlayer.velocity.x, 0f, -playerSpeedRun);
+                this.transform.eulerAngles = new Vector3(0f, 180f, 0f);
+                animationPlayer.Play("run");
+            }
+            else
+            {
+                rigidBodyPlayer.velocity = new Vector3(rigidBodyPlayer.velocity.x, 0f, -playerSpeed);
+                this.transform.eulerAngles = new Vector3(0f, 180f, 0f);
+                animationPlayer.Play("walk");
+            }
+        }
+        else if (input == "right")
+        {
+            if (Input.GetKey(KeyCode.R))
+            {
+                rigidBodyPlayer.velocity = new Vector3(playerSpeedRun, 0f, rigidBodyPlayer.velocity.z);
+                this.transform.eulerAngles = new Vector3(0f, 90f, 0f);
+                animationPlayer.Play("run");
+            }
+            else
+            {
+                rigidBodyPlayer.velocity = new Vector3(playerSpeed, 0f, rigidBodyPlayer.velocity.z);
+                this.transform.eulerAngles = new Vector3(0f, 90f, 0f);
+                animationPlayer.Play("walk");
+            }
+        }
+        else if (input == "flip")
+        {
+            animationPlayer.Play("flip");
+        }
+        else if (input == "punch")
+        {
+            animationPlayer.Play("punch");
+            boxColliderPlayer.size = new Vector3(0.75f, 1.85f, 1.25f);
+            boxColliderPlayer.center = new Vector3(0f, 1f, 0.5f);
+        }
+        else if (input == "kick")
+        {
+            animationPlayer.Play("kick");
+            boxColliderPlayer.size = new Vector3(1.75f, 2f, 1.75f);
+            boxColliderPlayer.center = new Vector3(0.5f, 1.5f, 0.5f);
+        }
+        else if(input=="jump")
+        {
+            animationPlayer.Play("jump");
+            rigidBodyPlayer.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+        }
+    }
+  
 }

@@ -43,7 +43,7 @@ public class GameSave : MonoBehaviour {
         {
             UnsaveGame();
         }
-        else if(Input.GetKeyDown(KeyCode.R))
+        else if(Input.GetKeyDown(KeyCode.G))
         {
             RestoreGame();
         }
