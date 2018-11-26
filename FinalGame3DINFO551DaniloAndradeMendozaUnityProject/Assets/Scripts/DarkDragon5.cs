@@ -23,15 +23,13 @@ public class DarkDragon5 : Dragon {
     {
         if (collision.gameObject.GetComponent<Animation>().IsPlaying("punch"))
         {
-            collision.gameObject.GetComponent<Player>().punch--;
-            Debug.Log("punch");
-            Debug.Log(collision.gameObject.GetComponent<Player>().punch);
+            PersistentData.singleton.punch--;
+      
         }
         else if (collision.gameObject.GetComponent<Animation>().IsPlaying("kick"))
         {
-            collision.gameObject.GetComponent<Player>().kick--;
-            Debug.Log("kick");
-            Debug.Log(collision.gameObject.GetComponent<Player>().kick);
+            PersistentData.singleton.kick--;
+         
         }
     }
     public override void OnCollisionEnter(Collision collision)
@@ -39,10 +37,6 @@ public class DarkDragon5 : Dragon {
         if (collision.gameObject.name == "MAX" && (collision.gameObject.GetComponent<Animation>().IsPlaying("punch") || collision.gameObject.GetComponent<Animation>().IsPlaying("kick")))
         {
             this.lifePoints--;
-            Debug.Log("kick");
-            Debug.Log(collision.gameObject.GetComponent<Player>().kick);
-            Debug.Log("punch");
-            Debug.Log(collision.gameObject.GetComponent<Player>().punch);
             AffectSkills(collision);
             if (this.lifePoints == 0)
             {

@@ -7,11 +7,9 @@ using UnityEngine.UI;
 
 public class GameSave : MonoBehaviour {
     public GameObject player1;
-    public GameObject[] gameObjects;
     public Text lifePointsText;
     public Text punchText;
     public Text kickText;
-
     void Start () {
         RestoreGame();
     }
@@ -33,9 +31,9 @@ public class GameSave : MonoBehaviour {
                 playerPoints.punch = s.punch;
                 playerPoints.lifePoints = s.lifePoints;
                 playerPoints.yRotation = s.yRotation;
-                player1.GetComponent<Player>().kick = playerPoints.kick;
-                player1.GetComponent<Player>().punch = playerPoints.punch;
-                player1.GetComponent<Player>().lifePoints = playerPoints.lifePoints;
+                PersistentData.singleton.kick = playerPoints.kick;
+                PersistentData.singleton.punch = playerPoints.punch;
+                PersistentData.singleton.lifePoints = playerPoints.lifePoints;
                 lifePointsText.text = playerPoints.lifePoints.ToString();
                 punchText.text = playerPoints.punch.ToString();
                 kickText.text = playerPoints.kick.ToString();
@@ -64,24 +62,12 @@ public class GameSave : MonoBehaviour {
         s.y = player1.transform.position.y;
         s.z = player1.transform.position.z;
         s.yRotation = player1.transform.eulerAngles.y;
-        s.kick = player1.GetComponent<Player>().kick;
-        s.punch = player1.GetComponent<Player>().punch;
-        s.lifePoints = player1.GetComponent<Player>().lifePoints;
+        s.kick = PersistentData.singleton.kick;
+        s.punch = PersistentData.singleton.punch;
+        s.lifePoints = PersistentData.singleton.lifePoints;
         lifePointsText.text = s.lifePoints.ToString();
         punchText.text = s.punch.ToString();
         kickText.text = s.kick.ToString();
-        //GameObject[] gameObjects = GameObject.FindGameObjectsWithTag("Game");
-        //for (int i = 0; i < gameObjects.Length; i++)
-        //{
-        //    if(gameObjects[i].activeInHierarchy)
-        //    {
-
-        //    }
-        //    else if()
-        //    {
-
-        //    }
-        //}
         string json = JsonUtility.ToJson(s);
         Debug.Log(json);
         PlayerPrefs.SetString("PlayerLocation", json);
@@ -100,19 +86,9 @@ public class GameSave : MonoBehaviour {
         punchText.text = s.punch.ToString();
         kickText.text = s.kick.ToString();
         string json = JsonUtility.ToJson(s);
-       // s = JsonUtility.FromJson<SavePosition>(json);
         Debug.Log(json);
         PlayerPrefs.SetString("PlayerLocation", json);
     }
-    //public static T UnsaveGame<T>(string xml)
-    //{
 
-    //    T obj = default(T);
-    //    XmlSerializer serializer = new XmlSerializer(typeof(T));
-    //    using (TextReader textReader = new StringReader(xml))
-    //    {
-    //        obj = (T)serializer.Deserialize(textReader);
-    //    }
-    //    return obj;
-    //}
+   
 }

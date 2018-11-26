@@ -8,17 +8,16 @@ public class StrawberryHalf : Fruit {
         this.lifePointsFood = 2;
         this.lifePointsNeeded = 98;
     }
-    public void IncreaseKickHalf(Collision collision)
+    public void IncreaseKickHalf()
     {
-        collision.gameObject.GetComponent<Player>().kick += 2;
+        PersistentData.singleton.kick += 2;
     }
     public override void OnCollisionEnter(Collision collision)
     {
-        Player player1 = collision.gameObject.GetComponent<Player>();
-        if (collision.gameObject.name == "MAX" && player1.lifePoints <= this.lifePointsNeeded)
+        if (collision.gameObject.name == "MAX" && PersistentData.singleton.lifePoints <= this.lifePointsNeeded)
         {
-            player1.lifePoints = player1.lifePoints + this.lifePointsFood;
-            IncreaseKickHalf(collision);
+            PersistentData.singleton.lifePoints = PersistentData.singleton.lifePoints + this.lifePointsFood;
+            IncreaseKickHalf();
             this.gameObject.SetActive(false);
         }
     }

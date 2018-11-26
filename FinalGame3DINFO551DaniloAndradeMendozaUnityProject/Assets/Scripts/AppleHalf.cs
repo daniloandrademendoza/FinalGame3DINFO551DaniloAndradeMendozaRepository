@@ -8,17 +8,17 @@ public class AppleHalf : Fruit {
         this.lifePointsFood = 20;
         this.lifePointsNeeded = 80;
     }
-    public void IncreasePunchHalf(Collision collision)
+    public void IncreasePunchHalf()
     {
-        collision.gameObject.GetComponent<Player>().punch += 10;
+        PersistentData.singleton.punch += 10;
     }
     public override void OnCollisionEnter(Collision collision)
     {
-        Player player1 = collision.gameObject.GetComponent<Player>();
-        if (collision.gameObject.name == "MAX" && player1.lifePoints <= this.lifePointsNeeded)
+
+        if (collision.gameObject.name == "MAX" && PersistentData.singleton.lifePoints <= this.lifePointsNeeded)
         {
-            player1.lifePoints = player1.lifePoints + this.lifePointsFood;
-            IncreasePunchHalf(collision);
+            PersistentData.singleton.lifePoints = PersistentData.singleton.lifePoints + this.lifePointsFood;
+            IncreasePunchHalf();
             this.gameObject.SetActive(false);
         }
     }

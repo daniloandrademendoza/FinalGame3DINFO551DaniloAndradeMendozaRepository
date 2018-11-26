@@ -19,18 +19,18 @@ public class DarkDragon4 : Dragon {
         this.animatorMonster.Play("hit");
         this.boxColliderDragon.size = new Vector3(this.xStartBoxCollider, this.yStartBoxCollider, 2.25f);
     }
-    public void HitMoreLifePoints(Collision collision)
+    public void HitMoreLifePoints()
     {
-        collision.gameObject.GetComponent<Player>().lifePoints--;
-        Debug.Log(collision.gameObject.GetComponent<Player>().lifePoints);
+        PersistentData.singleton.lifePoints--;
+        //Debug.Log(collision.gameObject.GetComponent<Player>().lifePoints);
     }
     public override void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.name == "MAX" && (collision.gameObject.GetComponent<Animation>().IsPlaying("punch") || collision.gameObject.GetComponent<Animation>().IsPlaying("kick")))
         {
             this.lifePoints--;
-            Debug.Log(collision.gameObject.GetComponent<Player>().lifePoints);
-            HitMoreLifePoints(collision);
+           // Debug.Log(collision.gameObject.GetComponent<Player>().lifePoints);
+            HitMoreLifePoints();
             if (this.lifePoints == 0)
             {
                 this.animatorMonster.Play("die");

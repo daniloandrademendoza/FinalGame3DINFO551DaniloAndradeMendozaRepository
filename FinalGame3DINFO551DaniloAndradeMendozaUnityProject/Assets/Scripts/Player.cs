@@ -11,9 +11,6 @@ public class Player : MonoBehaviour
     private Animation animationPlayer;
     public float jumpForce;
     private BoxCollider boxColliderPlayer;
-    public int punch;
-    public int kick;
-    public int lifePoints;
     delegate void MyDelegate(string input);
     MyDelegate myDelegate;
     void Start()
@@ -24,9 +21,6 @@ public class Player : MonoBehaviour
         animationPlayer = GetComponent<Animation>();
         jumpForce = 2.5f;
         boxColliderPlayer = GetComponent<BoxCollider>();
-        punch = 0;
-        kick = 0;
-        lifePoints = 100;
     }
     
     void Update()
@@ -83,18 +77,18 @@ public class Player : MonoBehaviour
         
         if (Input.GetKey(KeyCode.P))
         {
-            punch = punch + 1;
+            PersistentData.singleton.punch = PersistentData.singleton.punch + 1;
         }
         else if(Input.GetKey(KeyCode.K))
         {
-            kick = kick + 1;
+            PersistentData.singleton.kick = PersistentData.singleton.kick + 1;
         }
         else if (collision.gameObject.name == "DarkDragon1"|| collision.gameObject.name == "DarkDragon2"|| collision.gameObject.name == "DarkDragon3"|| collision.gameObject.name == "DarkDragon4"|| collision.gameObject.name == "DarkDragon5"|| collision.gameObject.name == "DarkDragon6"|| collision.gameObject.name == "DarkDragon7"|| collision.gameObject.name == "DarkDragon8"|| collision.gameObject.name == "DarkDragon9"|| collision.gameObject.name == "DarkDragon10")
         {
-            lifePoints--;
+            PersistentData.singleton.lifePoints--;
             
         }
-        if(lifePoints==0)
+        if(PersistentData.singleton.lifePoints ==0)
         {
             this.animationPlayer.Play("death");
             this.gameObject.SetActive(false);
