@@ -13,6 +13,8 @@ public class Player : MonoBehaviour
     private BoxCollider boxColliderPlayer;
     delegate void MyDelegate(string input);
     MyDelegate myDelegate;
+    public GameObject[] dragons;
+    private int dragonsDead;
     void Start()
     {
         rigidBodyPlayer = GetComponent<Rigidbody>();
@@ -21,6 +23,8 @@ public class Player : MonoBehaviour
         animationPlayer = GetComponent<Animation>();
         jumpForce = 2.5f;
         boxColliderPlayer = GetComponent<BoxCollider>();
+        dragonsDead = 0;
+      
     }
     
     void Update()
@@ -71,6 +75,12 @@ public class Player : MonoBehaviour
             boxColliderPlayer.size = new Vector3(.75f, 1.9f, .75f);
             boxColliderPlayer.center = new Vector3(0f, .95f, 0f);
         }
+        dragonsDead = Game2();
+        if(dragonsDead==10)
+        {
+            SceneManager.LoadScene("Game2");
+        }
+        
     }
     public void OnCollisionEnter(Collision collision)
     {
@@ -92,7 +102,7 @@ public class Player : MonoBehaviour
         {
             this.animationPlayer.Play("death");
             this.gameObject.SetActive(false);
-                SceneManager.LoadScene("GameOver");
+            SceneManager.LoadScene("GameOver");
         }
         
     }
@@ -181,5 +191,16 @@ public class Player : MonoBehaviour
             rigidBodyPlayer.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
         }
     }
-  
+        int Game2()
+        {
+        int j = 0;
+        for(int i=0; i<dragons.Length;i++)
+        {
+            if(dragons[i].activeInHierarchy==false)
+            {
+                j++;
+            }
+        }
+        return j;
+        }
 }

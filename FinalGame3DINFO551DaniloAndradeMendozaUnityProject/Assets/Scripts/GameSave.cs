@@ -13,6 +13,12 @@ public class GameSave : MonoBehaviour {
     void Start () {
         RestoreGame();
     }
+    void FixedUpdate()
+    { 
+        lifePointsText.text = PersistentData.singleton.lifePoints.ToString();
+        punchText.text = PersistentData.singleton.punch.ToString();
+        kickText.text = PersistentData.singleton.kick.ToString();
+    }
     void RestoreGame()
     {
         string p = PlayerPrefs.GetString("PlayerLocation");
@@ -27,16 +33,16 @@ public class GameSave : MonoBehaviour {
                 position.z = s.z;
                 player1.transform.position = position;
                 SavePosition playerPoints = new SavePosition();
-                playerPoints.kick = s.kick;
+               playerPoints.kick = s.kick;
                 playerPoints.punch = s.punch;
                 playerPoints.lifePoints = s.lifePoints;
                 playerPoints.yRotation = s.yRotation;
                 PersistentData.singleton.kick = playerPoints.kick;
                 PersistentData.singleton.punch = playerPoints.punch;
-                PersistentData.singleton.lifePoints = playerPoints.lifePoints;
-                lifePointsText.text = playerPoints.lifePoints.ToString();
-                punchText.text = playerPoints.punch.ToString();
-                kickText.text = playerPoints.kick.ToString();
+               PersistentData.singleton.lifePoints = playerPoints.lifePoints;
+              //  lifePointsText.text = playerPoints.lifePoints.ToString();
+              //  punchText.text = playerPoints.punch.ToString();
+               // kickText.text = playerPoints.kick.ToString();
                 player1.transform.eulerAngles = new Vector3(0f,playerPoints.yRotation,0f);
             }
         }
@@ -65,9 +71,9 @@ public class GameSave : MonoBehaviour {
         s.kick = PersistentData.singleton.kick;
         s.punch = PersistentData.singleton.punch;
         s.lifePoints = PersistentData.singleton.lifePoints;
-        lifePointsText.text = s.lifePoints.ToString();
-        punchText.text = s.punch.ToString();
-        kickText.text = s.kick.ToString();
+       // lifePointsText.text = s.lifePoints.ToString();
+       // punchText.text = s.punch.ToString();
+     //   kickText.text = s.kick.ToString();
         string json = JsonUtility.ToJson(s);
         Debug.Log(json);
         PlayerPrefs.SetString("PlayerLocation", json);
@@ -82,9 +88,9 @@ public class GameSave : MonoBehaviour {
         s.kick = 0;
         s.punch = 0;
         s.lifePoints = 100;
-        lifePointsText.text = s.lifePoints.ToString();
-        punchText.text = s.punch.ToString();
-        kickText.text = s.kick.ToString();
+       // lifePointsText.text = s.lifePoints.ToString();
+       // punchText.text = s.punch.ToString();
+       // kickText.text = s.kick.ToString();
         string json = JsonUtility.ToJson(s);
         Debug.Log(json);
         PlayerPrefs.SetString("PlayerLocation", json);
