@@ -7,12 +7,6 @@ public class DarkDragon3 : Dragon {
     {
         this.coroutine = WaitAndAttack(this.waitTime);
         StartCoroutine(this.coroutine);
-        if (!this.animatorMonster.GetCurrentAnimatorStateInfo(0).IsName("atk03"))
-        {
-            this.boxColliderDragon.center = new Vector3(0f,0.5f,0f);
-            this.boxColliderDragon.size = new Vector3(this.xStartBoxCollider, this.yStartBoxCollider, this.zStartBoxCollider);
-        }
-       
     }
     public override IEnumerator WaitAndAttack(float waitTime)
     {
@@ -30,14 +24,16 @@ public class DarkDragon3 : Dragon {
         if (collision.gameObject.name == "MAX" && (collision.gameObject.GetComponent<Animation>().IsPlaying("punch") || collision.gameObject.GetComponent<Animation>().IsPlaying("kick")))
         {
             this.lifePoints--;
-          //  Debug.Log(this.lifePoints);
-            ThrowDown(collision);
             if (this.lifePoints == 0)
             {
                 this.animatorMonster.Play("die");
                 this.gameObject.SetActive(false);
             
             }
+        }
+        else if (collision.gameObject.name == "MAX")
+        {
+            ThrowDown(collision);
         }
 
     }

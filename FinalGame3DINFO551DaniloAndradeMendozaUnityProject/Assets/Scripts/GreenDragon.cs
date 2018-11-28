@@ -2,15 +2,37 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GreenDragon : MonoBehaviour {
-
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+public class GreenDragon : Dragon {
+    public override void Update()
+    {
+        StartCoroutine(WaitAndAttack(this.waitTime));
+    }
+    public override IEnumerator WaitAndAttack(float waitTime)
+    {
+        yield return new WaitForSeconds(waitTime);
+        this.animatorMonster.Play("Flame Attack");
+        this.boxColliderDragon.center = new Vector3(0f, 0f, -2f);
+        this.boxColliderDragon.size = new Vector3(9f, 12f, 12.5f);
+    }
+   public void Tower(Collision collision)
+    {
+        collision.transform.position = new Vector3(23.6f, 0f, 135.7f);
+        collision.transform.eulerAngles = new Vector3(0f, 180f, 0f);
+    }
+    public override void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.name == "MAX" && (collision.gameObject.GetComponent<Animation>().IsPlaying("punch") || collision.gameObject.GetComponent<Animation>().IsPlaying("kick")))
+        {
+            this.lifePoints--;
+            if (this.lifePoints == 0)
+            {
+                this.animatorMonster.Play("Die");
+                this.gameObject.SetActive(false);
+            }
+        }
+        else if (collision.gameObject.name == "MAX")
+        {
+            Tower(collision);
+        }
+    }
 }

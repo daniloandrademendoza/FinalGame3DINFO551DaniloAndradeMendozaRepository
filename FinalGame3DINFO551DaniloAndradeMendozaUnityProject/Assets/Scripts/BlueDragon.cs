@@ -22,8 +22,6 @@ public class BlueDragon : Dragon {
         if (collision.gameObject.name == "MAX" && (collision.gameObject.GetComponent<Animation>().IsPlaying("punch") || collision.gameObject.GetComponent<Animation>().IsPlaying("kick")))
         {
             this.lifePoints--;
-            Debug.Log(this.lifePoints);
-            SendToEntrance(collision);
             if (this.lifePoints == 0)
             {
                 this.animatorMonster.Play("Die");
@@ -32,7 +30,6 @@ public class BlueDragon : Dragon {
         }
         else if (collision.gameObject.name == "MAX")
         {
-            Debug.Log("collision");
             SendToEntrance(collision);
         }
     }
