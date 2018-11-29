@@ -1,11 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BlueDragon : Dragon {
+    public Text lifePointsDragonText;
     public override void Update()
     {
         StartCoroutine(WaitAndAttack(this.waitTime));
+        lifePointsDragonText.text = this.lifePoints.ToString();
     }
     public override IEnumerator WaitAndAttack(float waitTime)
     {

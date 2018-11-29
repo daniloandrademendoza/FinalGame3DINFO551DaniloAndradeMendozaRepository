@@ -1,12 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class DarkDragon2 : Dragon {
+    public Text lifePointsDragonText;
     public override void Update()
     {
         this.coroutine = WaitAndAttack(this.waitTime);
         StartCoroutine(this.coroutine);
+        lifePointsDragonText.text = this.lifePoints.ToString();
     }
     public override IEnumerator WaitAndAttack(float waitTime)
     {

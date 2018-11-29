@@ -84,7 +84,7 @@ public class Player : MonoBehaviour
     }
     public void OnCollisionEnter(Collision collision)
     {
-        
+        PersistentData.singleton.lifePoints--;
         if (Input.GetKey(KeyCode.P))
         {
             PersistentData.singleton.punch = PersistentData.singleton.punch + 1;
@@ -92,11 +92,6 @@ public class Player : MonoBehaviour
         else if(Input.GetKey(KeyCode.K))
         {
             PersistentData.singleton.kick = PersistentData.singleton.kick + 1;
-        }
-        else if (collision.gameObject.name == "DarkDragon1"|| collision.gameObject.name == "DarkDragon2"|| collision.gameObject.name == "DarkDragon3"|| collision.gameObject.name == "DarkDragon4"|| collision.gameObject.name == "DarkDragon5"|| collision.gameObject.name == "DarkDragon6"|| collision.gameObject.name == "DarkDragon7"|| collision.gameObject.name == "DarkDragon8"|| collision.gameObject.name == "DarkDragon9"|| collision.gameObject.name == "DarkDragon10")
-        {
-            PersistentData.singleton.lifePoints--;
-            
         }
         if(PersistentData.singleton.lifePoints ==0)
         {
