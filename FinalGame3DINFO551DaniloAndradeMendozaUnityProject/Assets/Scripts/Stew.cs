@@ -2,22 +2,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Pear : Food {
+public class Stew : Food {
     public override void Start()
     {
-        this.lifePointsFood = 30;
-        this.lifePointsNeeded = 70;
+        this.lifePointsFood = 20;
+        this.lifePointsNeeded = 80;
     }
-    public void IncreaseJump(Collision collision)
+    public void IncreaseSize(Collision collision)
     {
-        collision.gameObject.GetComponent<Player>().jumpForce = 5f;
+        collision.transform.localScale = new Vector3(5f, 5f, 5f);
     }
     public override void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.name == "MAX" && PersistentData.singleton.lifePoints <= this.lifePointsNeeded)
         {
             PersistentData.singleton.lifePoints = PersistentData.singleton.lifePoints + this.lifePointsFood;
-            IncreaseJump(collision);
+            IncreaseSize(collision);
             this.gameObject.SetActive(false);
         }
     }

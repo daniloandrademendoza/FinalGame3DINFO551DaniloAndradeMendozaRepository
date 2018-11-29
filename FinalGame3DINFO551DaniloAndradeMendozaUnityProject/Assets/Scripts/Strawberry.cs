@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Strawberry : Fruit {
+public class Strawberry : Food {
     public override void Start()
     {
         this.lifePointsFood = 4;
