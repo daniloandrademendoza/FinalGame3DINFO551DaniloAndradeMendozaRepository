@@ -84,7 +84,13 @@ public class Player : MonoBehaviour
     }
     public void OnCollisionEnter(Collision collision)
     {
-        PersistentData.singleton.lifePoints--;
+        for (int k=0; k<dragons.Length; k++)
+        {
+            if (collision.gameObject == dragons[k])
+            {
+                PersistentData.singleton.lifePoints--;
+            }
+        }
         if (Input.GetKey(KeyCode.P))
         {
             PersistentData.singleton.punch = PersistentData.singleton.punch + 1;
