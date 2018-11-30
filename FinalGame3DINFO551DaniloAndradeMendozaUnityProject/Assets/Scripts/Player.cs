@@ -100,20 +100,11 @@ public class Player : MonoBehaviour
                 PersistentData.singleton.lifePoints--;
             }
         }
-        if (Input.GetKey(KeyCode.P))
-        {
-            PersistentData.singleton.punch = PersistentData.singleton.punch + 1;
-        }
-        else if(Input.GetKey(KeyCode.K))
-        {
-            PersistentData.singleton.kick = PersistentData.singleton.kick + 1;
-        }
-        if(PersistentData.singleton.lifePoints ==0)
+        if (PersistentData.singleton.lifePoints == 0)
         {
             StartCoroutine(DieThenDisappear(this.waitTime));
             SceneManager.LoadScene("GameOver");
         }
-        
     }
 
     void Controls(string input)

@@ -27,7 +27,7 @@ public abstract class Dragon : MonoBehaviour {
         zNewBoxCollider = 2.5f;
         x2NewBoxCollider = 5.5f;
         y2NewBoxCollier = 2f;
-        dieWaitTime = 30f;
+        dieWaitTime = 10f;
     }
     public abstract void Update();
     public abstract IEnumerator WaitAndAttack(float waitTime);

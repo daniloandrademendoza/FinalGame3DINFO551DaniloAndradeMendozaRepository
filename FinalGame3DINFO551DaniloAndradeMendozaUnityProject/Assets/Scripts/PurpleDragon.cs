@@ -7,8 +7,15 @@ public class PurpleDragon : Dragon{
     public Text lifePointsDragonText;
     public override void Update()
     {
-        StartCoroutine(WaitAndAttack(this.waitTime));
         lifePointsDragonText.text = this.lifePoints.ToString();
+        if (this.lifePoints == 0)
+        {
+            StartCoroutine(this.DieThenDisappearFourDragons(this.dieWaitTime));
+        }
+        else
+        {
+            StartCoroutine(WaitAndAttack(this.waitTime));
+        }
     }
     public override IEnumerator WaitAndAttack(float waitTime)
     {
@@ -23,12 +30,21 @@ public class PurpleDragon : Dragon{
     }
     public override void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.name == "MAX" && (collision.gameObject.GetComponent<Animation>().IsPlaying("punch") || collision.gameObject.GetComponent<Animation>().IsPlaying("kick")))
+        if (collision.gameObject.name == "MAX" && (Input.GetKey(KeyCode.P) || Input.GetKey(KeyCode.K)))
         {
-            this.lifePoints--;
-            if (this.lifePoints == 0)
+            PersistentData.singleton.lifePoints++;
+            if (this.lifePoints > 0)
             {
-                StartCoroutine(this.DieThenDisappearFourDragons(this.dieWaitTime));
+                this.lifePoints--;
+            }
+           
+            if (Input.GetKey(KeyCode.P))
+            {
+                PersistentData.singleton.punch = PersistentData.singleton.punch + 1;
+            }
+            else if (Input.GetKey(KeyCode.K))
+            {
+                PersistentData.singleton.kick = PersistentData.singleton.kick + 1;
             }
         }
         else if (collision.gameObject.name == "MAX")
