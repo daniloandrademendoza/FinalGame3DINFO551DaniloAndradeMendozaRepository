@@ -28,8 +28,7 @@ public class DarkDragon1 : Dragon {
             this.lifePoints--;
             if (this.lifePoints == 0)
             {
-                this.animatorMonster.Play("die");
-                this.gameObject.SetActive(false);
+                StartCoroutine(this.DieThenDisappearDarkDragon(this.dieWaitTime));
             }
         }
         else if (collision.gameObject.name == "MAX")

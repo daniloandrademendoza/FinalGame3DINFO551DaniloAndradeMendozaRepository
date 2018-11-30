@@ -15,6 +15,8 @@ public class Player : MonoBehaviour
     MyDelegate myDelegate;
     public GameObject[] dragons;
     private int dragonsDead;
+    private string gameSceneString;
+    private float waitTime;
     void Start()
     {
         rigidBodyPlayer = GetComponent<Rigidbody>();
@@ -24,7 +26,8 @@ public class Player : MonoBehaviour
         jumpForce = 2.5f;
         boxColliderPlayer = GetComponent<BoxCollider>();
         dragonsDead = 0;
-      
+        gameSceneString = " ";
+        waitTime = 30f;
     }
     
     void Update()
@@ -78,7 +81,13 @@ public class Player : MonoBehaviour
         dragonsDead = Game2();
         if(dragonsDead==10)
         {
+            gameSceneString = "Game2";
             SceneManager.LoadScene("Game2");
+           
+        }
+        if(dragonsDead==4&&gameSceneString=="Game2")
+        {
+            SceneManager.LoadScene("Won");
         }
         
     }
@@ -101,8 +110,7 @@ public class Player : MonoBehaviour
         }
         if(PersistentData.singleton.lifePoints ==0)
         {
-            this.animationPlayer.Play("death");
-            this.gameObject.SetActive(false);
+            StartCoroutine(DieThenDisappear(this.waitTime));
             SceneManager.LoadScene("GameOver");
         }
         
@@ -204,4 +212,10 @@ public class Player : MonoBehaviour
         }
         return j;
         }
+    public IEnumerator DieThenDisappear(float waitTime)
+    {
+        this.animationPlayer.Play("death");
+        yield return new WaitForSeconds(waitTime);
+        this.gameObject.SetActive(false);
+    }
 }

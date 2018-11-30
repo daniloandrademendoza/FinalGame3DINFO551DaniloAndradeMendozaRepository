@@ -14,6 +14,7 @@ public abstract class Dragon : MonoBehaviour {
     protected float zNewBoxCollider;
     protected float x2NewBoxCollider;
     protected float y2NewBoxCollier;
+    protected float dieWaitTime;
     public void Start()
     {
         lifePoints = 10;
@@ -26,9 +27,22 @@ public abstract class Dragon : MonoBehaviour {
         zNewBoxCollider = 2.5f;
         x2NewBoxCollider = 5.5f;
         y2NewBoxCollier = 2f;
-        
+        dieWaitTime = 30f;
     }
     public abstract void Update();
     public abstract IEnumerator WaitAndAttack(float waitTime);
     public abstract void OnCollisionEnter(Collision collision);
+    public IEnumerator DieThenDisappearDarkDragon(float waitTime)
+    {
+        this.animatorMonster.Play("die");
+        yield return new WaitForSeconds(waitTime);
+        this.gameObject.SetActive(false);
+    }
+    public IEnumerator DieThenDisappearFourDragons(float waitTime)
+    {
+        this.animatorMonster.Play("Die");
+        yield return new WaitForSeconds(waitTime);
+        this.gameObject.SetActive(false);
+    }
 }
+

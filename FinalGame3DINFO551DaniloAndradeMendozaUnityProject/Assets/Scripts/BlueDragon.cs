@@ -27,8 +27,7 @@ public class BlueDragon : Dragon {
             this.lifePoints--;
             if (this.lifePoints == 0)
             {
-                this.animatorMonster.Play("Die");
-                this.gameObject.SetActive(false);
+                StartCoroutine(this.DieThenDisappearFourDragons(this.dieWaitTime));
             }
         }
         else if (collision.gameObject.name == "MAX")
