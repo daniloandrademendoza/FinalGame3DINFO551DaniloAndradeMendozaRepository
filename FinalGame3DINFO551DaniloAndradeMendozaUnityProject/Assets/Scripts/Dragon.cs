@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class Dragon : MonoBehaviour {
-    protected int lifePoints;
     protected Animator animatorMonster;
     protected IEnumerator coroutine;
     protected float waitTime;
@@ -17,7 +16,6 @@ public abstract class Dragon : MonoBehaviour {
     protected float dieWaitTime;
     public void Start()
     {
-        lifePoints = 10;
         animatorMonster = GetComponent<Animator>();
         waitTime = 15f;
         boxColliderDragon = GetComponent<BoxCollider>();

@@ -1,12 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
-public class DarkDragon2 : Dragon {
+public class DarkDragon9 : Dragon {
     public override void Update()
     {
-        if (PersistentData.singleton.lifePointsDarkDragon2 == 0)
+        if (PersistentData.singleton.lifePointsDarkDragon9 == 0)
         {
             StartCoroutine(this.DieThenDisappearDarkDragon(this.dieWaitTime));
         }
@@ -18,23 +17,23 @@ public class DarkDragon2 : Dragon {
     public override IEnumerator WaitAndAttack(float waitTime)
     {
         yield return new WaitForSeconds(waitTime);
-        this.animatorMonster.Play("atk02");
-        this.boxColliderDragon.size = new Vector3(this.x2NewBoxCollider, this.y2NewBoxCollier, this.zNewBoxCollider);
+        this.animatorMonster.Play("hit");
+        this.boxColliderDragon.size = new Vector3(this.xStartBoxCollider, this.yStartBoxCollider, 2.25f);
     }
-    public void ThrowFarAway(Collision collision)
+    public void HitMoreLifePoints()
     {
-        collision.gameObject.transform.position = new Vector3(collision.gameObject.transform.position.x - 5f, collision.gameObject.transform.position.y, collision.gameObject.transform.position.z);
+        PersistentData.singleton.lifePoints--;
     }
     public override void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.name == "MAX" && (Input.GetKey(KeyCode.P) || Input.GetKey(KeyCode.K)))
         {
             PersistentData.singleton.lifePoints++;
-            if (PersistentData.singleton.lifePointsDarkDragon2 > 0)
+            if (PersistentData.singleton.lifePointsDarkDragon9 > 0)
             {
-                PersistentData.singleton.lifePointsDarkDragon2--;
+                PersistentData.singleton.lifePointsDarkDragon9--;
             }
-            
+
             if (Input.GetKey(KeyCode.P))
             {
                 PersistentData.singleton.punch = PersistentData.singleton.punch + 1;
@@ -46,7 +45,8 @@ public class DarkDragon2 : Dragon {
         }
         else if (collision.gameObject.name == "MAX")
         {
-            ThrowFarAway(collision);
+            HitMoreLifePoints();
         }
+
     }
 }

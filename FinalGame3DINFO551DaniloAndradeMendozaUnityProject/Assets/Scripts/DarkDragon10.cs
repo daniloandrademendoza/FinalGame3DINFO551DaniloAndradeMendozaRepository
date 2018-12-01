@@ -1,16 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
-public class DarkDragon5 : Dragon {
+public class DarkDragon10 : Dragon {
     public override void Update()
     {
         StartCoroutine(WaitAndAttack(this.waitTime));
     }
     public override IEnumerator WaitAndAttack(float waitTime)
     {
-        if (PersistentData.singleton.lifePointsDarkDragon5 == 0)
+        if (PersistentData.singleton.lifePointsDarkDragon10 == 0)
         {
             StartCoroutine(this.DieThenDisappearDarkDragon(this.dieWaitTime));
         }
@@ -26,12 +25,12 @@ public class DarkDragon5 : Dragon {
         if (collision.gameObject.GetComponent<Animation>().IsPlaying("punch"))
         {
             PersistentData.singleton.punch--;
-      
+
         }
         else if (collision.gameObject.GetComponent<Animation>().IsPlaying("kick"))
         {
             PersistentData.singleton.kick--;
-         
+
         }
     }
     public override void OnCollisionEnter(Collision collision)
@@ -39,9 +38,9 @@ public class DarkDragon5 : Dragon {
         if (collision.gameObject.name == "MAX" && (Input.GetKey(KeyCode.P) || Input.GetKey(KeyCode.K)))
         {
             PersistentData.singleton.lifePoints++;
-            if (PersistentData.singleton.lifePointsDarkDragon5 > 0)
+            if (PersistentData.singleton.lifePointsDarkDragon10 > 0)
             {
-                PersistentData.singleton.lifePointsDarkDragon5--;
+                PersistentData.singleton.lifePointsDarkDragon10--;
             }
             if (Input.GetKey(KeyCode.P))
             {

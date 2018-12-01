@@ -4,11 +4,9 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class RedDragon : Dragon {
-    public Text lifePointsDragonText;
     public override void Update()
     {
-        lifePointsDragonText.text = this.lifePoints.ToString();
-        if (this.lifePoints == 0)
+        if (PersistentData.singleton.lifePointsRedDragon == 0)
         {
             StartCoroutine(this.DieThenDisappearFourDragons(this.dieWaitTime));
         }
@@ -32,9 +30,9 @@ public class RedDragon : Dragon {
         if (collision.gameObject.name == "MAX" && (Input.GetKey(KeyCode.P) || Input.GetKey(KeyCode.K)))
         {
             PersistentData.singleton.lifePoints++;
-            if (this.lifePoints > 0)
+            if (PersistentData.singleton.lifePointsRedDragon > 0)
             {
-                this.lifePoints--;
+                PersistentData.singleton.lifePointsRedDragon--;
             }
             
             if (Input.GetKey(KeyCode.P))

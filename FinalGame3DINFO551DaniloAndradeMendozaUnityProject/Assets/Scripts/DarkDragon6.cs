@@ -1,12 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
-public class DarkDragon2 : Dragon {
+public class DarkDragon6 : Dragon {
     public override void Update()
     {
-        if (PersistentData.singleton.lifePointsDarkDragon2 == 0)
+        if (PersistentData.singleton.lifePointsDarkDragon6 == 0)
         {
             StartCoroutine(this.DieThenDisappearDarkDragon(this.dieWaitTime));
         }
@@ -30,11 +29,11 @@ public class DarkDragon2 : Dragon {
         if (collision.gameObject.name == "MAX" && (Input.GetKey(KeyCode.P) || Input.GetKey(KeyCode.K)))
         {
             PersistentData.singleton.lifePoints++;
-            if (PersistentData.singleton.lifePointsDarkDragon2 > 0)
+            if (PersistentData.singleton.lifePointsDarkDragon6 > 0)
             {
-                PersistentData.singleton.lifePointsDarkDragon2--;
+                PersistentData.singleton.lifePointsDarkDragon6--;
             }
-            
+
             if (Input.GetKey(KeyCode.P))
             {
                 PersistentData.singleton.punch = PersistentData.singleton.punch + 1;
