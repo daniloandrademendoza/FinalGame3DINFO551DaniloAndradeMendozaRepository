@@ -2,13 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-
 public class LoadOnClick : MonoBehaviour {
-    private string sceneChecker;
-    private void Start()
-    {
-        sceneChecker = "Game";
-    }
     public void LoadScene(int level)
     {
         if(level==0)
@@ -19,19 +13,21 @@ public class LoadOnClick : MonoBehaviour {
         {
             SceneManager.LoadScene("MainMenu");
         }
-        else if (level == 2&&sceneChecker=="Game")
+        else if (level == 2)
         {
-            SceneManager.LoadScene("Game");
-            sceneChecker = "Game";
+            if (PersistentData.singleton.lifePointsDarkDragon1!=0||PersistentData.singleton.lifePointsDarkDragon2!=0||PersistentData.singleton.lifePointsDarkDragon3!=0||PersistentData.singleton.lifePointsDarkDragon4!=0||PersistentData.singleton.lifePointsDarkDragon5!=0||PersistentData.singleton.lifePointsDarkDragon6!=0||PersistentData.singleton.lifePointsDarkDragon7!=0||PersistentData.singleton.lifePointsDarkDragon8!=0||PersistentData.singleton.lifePointsDarkDragon9!=0||PersistentData.singleton.lifePointsDarkDragon10!=0)
+            {
+                SceneManager.LoadScene("Game");
+            }
+            else if (PersistentData.singleton.lifePointsDarkDragon1 == 0 && PersistentData.singleton.lifePointsDarkDragon2 == 0 && PersistentData.singleton.lifePointsDarkDragon3 == 0 && PersistentData.singleton.lifePointsDarkDragon4 == 0 && PersistentData.singleton.lifePointsDarkDragon5 == 0 && PersistentData.singleton.lifePointsDarkDragon6 == 0 && PersistentData.singleton.lifePointsDarkDragon7 == 0 && PersistentData.singleton.lifePointsDarkDragon8 == 0 && PersistentData.singleton.lifePointsDarkDragon9 == 0 && PersistentData.singleton.lifePointsDarkDragon10 == 0)
+            {
+                SceneManager.LoadScene("Game2");
+            }
         }
         else if (level == 3)
         {
             SceneManager.LoadScene("Controls");
         }
-        else if (level ==4&&sceneChecker=="Game2")
-        {
-            SceneManager.LoadScene("Game2");
-            sceneChecker = "Game2";
         }
     }
-}
+

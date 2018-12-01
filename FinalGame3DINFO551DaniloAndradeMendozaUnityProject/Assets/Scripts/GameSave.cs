@@ -4,7 +4,7 @@ using System.IO;
 using System.Xml.Serialization;
 using UnityEngine;
 using UnityEngine.UI;
-
+using UnityEngine.SceneManagement;
 public class GameSave : MonoBehaviour {
     public GameObject player1;
     public Text lifePointsText;
@@ -98,6 +98,69 @@ public class GameSave : MonoBehaviour {
                 PersistentData.singleton.lifePointsRedDragon = playerPoints.lifePointsRedDragon;
                 PersistentData.singleton.lifePointsGreenDragon = playerPoints.lifePointsGreenDragon;
                 PersistentData.singleton.lifePointsPurpleDragon = playerPoints.lifePointsPurpleDragon;
+                if(player1.gameObject.GetComponent<Player>().dragons.Length==10)
+                {
+                    if (PersistentData.singleton.lifePointsDarkDragon1 != 0)
+                    {
+                        player1.gameObject.GetComponent<Player>().dragons[0].SetActive(true);
+                    }
+                    if (PersistentData.singleton.lifePointsDarkDragon2 != 0)
+                    {
+                        player1.gameObject.GetComponent<Player>().dragons[1].SetActive(true);
+                    }
+                    if (PersistentData.singleton.lifePointsDarkDragon3 != 0)
+                    {
+                        player1.gameObject.GetComponent<Player>().dragons[2].SetActive(true);
+                    }
+                    if (PersistentData.singleton.lifePointsDarkDragon4 != 0)
+                    {
+                        player1.gameObject.GetComponent<Player>().dragons[3].SetActive(true);
+                    }
+                    if (PersistentData.singleton.lifePointsDarkDragon5 != 0)
+                    {
+                        player1.gameObject.GetComponent<Player>().dragons[4].SetActive(true);
+                    }
+                    if (PersistentData.singleton.lifePointsDarkDragon6 != 0)
+                    {
+                        player1.gameObject.GetComponent<Player>().dragons[5].SetActive(true);
+                    }
+                    if (PersistentData.singleton.lifePointsDarkDragon7 != 0)
+                    {
+                        player1.gameObject.GetComponent<Player>().dragons[6].SetActive(true);
+                    }
+                    if (PersistentData.singleton.lifePointsDarkDragon8 != 0)
+                    {
+                        player1.gameObject.GetComponent<Player>().dragons[7].SetActive(true);
+                    }
+                    if (PersistentData.singleton.lifePointsDarkDragon9 != 0)
+                    {
+                        player1.gameObject.GetComponent<Player>().dragons[8].SetActive(true);
+                    }
+                    if (PersistentData.singleton.lifePointsDarkDragon10 != 0)
+                    {
+                        player1.gameObject.GetComponent<Player>().dragons[9].SetActive(true);
+                    }
+                }
+                else if(player1.gameObject.GetComponent<Player>().dragons.Length == 4)
+                {
+                    if (PersistentData.singleton.lifePointsBlueDragon != 0)
+                    {
+                        player1.gameObject.GetComponent<Player>().dragons[0].SetActive(true);
+                    }
+                    if (PersistentData.singleton.lifePointsRedDragon != 0)
+                    {
+                        player1.gameObject.GetComponent<Player>().dragons[1].SetActive(true);
+                    }
+                    if (PersistentData.singleton.lifePointsGreenDragon != 0)
+                    {
+                        player1.gameObject.GetComponent<Player>().dragons[2].SetActive(true);
+                    }
+                    if (PersistentData.singleton.lifePointsPurpleDragon != 0)
+                    {
+                        player1.gameObject.GetComponent<Player>().dragons[3].SetActive(true);
+                    }
+                }
+                
             }
         }
     }
@@ -167,7 +230,11 @@ public class GameSave : MonoBehaviour {
         s.lifePointsRedDragon = 10;
         s.lifePointsGreenDragon = 10;
         s.lifePointsPurpleDragon = 10;
-    string json = JsonUtility.ToJson(s);
+        for (int i=0; i<player1.gameObject.GetComponent<Player>().dragons.Length;i++)
+        {
+            player1.gameObject.GetComponent<Player>().dragons[i].SetActive(true);
+        }
+        string json = JsonUtility.ToJson(s);
         Debug.Log(json);
         PlayerPrefs.SetString("PlayerLocation", json);
     }

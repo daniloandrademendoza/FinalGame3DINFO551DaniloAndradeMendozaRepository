@@ -14,8 +14,8 @@ public class Player : MonoBehaviour
     delegate void MyDelegate(string input);
     MyDelegate myDelegate;
     public GameObject[] dragons;
-    private int dragonsDead;
-    private string gameSceneString;
+    public int dragonsDead;
+    public string gameSceneString;
     private float waitTime;
     void Start()
     {

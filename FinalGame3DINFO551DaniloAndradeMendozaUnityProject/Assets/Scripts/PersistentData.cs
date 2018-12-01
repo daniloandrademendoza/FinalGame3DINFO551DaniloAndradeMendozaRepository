@@ -21,6 +21,7 @@ public class PersistentData : MonoBehaviour {
     public int lifePointsRedDragon=10;
     public int lifePointsGreenDragon=10;
     public int lifePointsPurpleDragon=10;
+
     private void Awake()
     {
         if(singleton==null)

@@ -33,14 +33,15 @@ public abstract class Dragon : MonoBehaviour {
     public IEnumerator DieThenDisappearDarkDragon(float waitTime)
     {
         this.animatorMonster.Play("die");
+        this.gameObject.SetActive(false);    
         yield return new WaitForSeconds(waitTime);
-        this.gameObject.SetActive(false);
     }
     public IEnumerator DieThenDisappearFourDragons(float waitTime)
     {
-        this.animatorMonster.Play("Die");
-        yield return new WaitForSeconds(waitTime);
+         this.animatorMonster.Play("Die");
         this.gameObject.SetActive(false);
+         yield return new WaitForSeconds(waitTime);
+
     }
 }
 

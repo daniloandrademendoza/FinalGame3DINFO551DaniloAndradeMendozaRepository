@@ -5708,6 +5708,8 @@ MonoBehaviour:
   - {fileID: 327918121}
   - {fileID: 1888202692}
   - {fileID: 1847942746}
+  dragonsDead: 0
+  gameSceneString: 
 --- !u!54 &277759135
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -9405,6 +9407,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 251
       objectReference: {fileID: 0}
+    - target: {fileID: 114116017502915674, guid: a97af8582430ccb458a8fed7d780293d,
+        type: 2}
+      propertyPath: dragon
+      value: 
+      objectReference: {fileID: 1847942746}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a97af8582430ccb458a8fed7d780293d, type: 2}
   m_IsPrefabAsset: 0
@@ -38307,7 +38314,7 @@ GameObject:
   - component: {fileID: 1847942747}
   m_Layer: 0
   m_Name: DarkDragon10
-  m_TagString: Game
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

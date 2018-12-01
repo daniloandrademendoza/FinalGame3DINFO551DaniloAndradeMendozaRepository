@@ -5,20 +5,25 @@ using UnityEngine;
 public class DarkDragon10 : Dragon {
     public override void Update()
     {
-        StartCoroutine(WaitAndAttack(this.waitTime));
-    }
-    public override IEnumerator WaitAndAttack(float waitTime)
-    {
-        if (PersistentData.singleton.lifePointsDarkDragon10 == 0)
+        
+        if (PersistentData.singleton.lifePointsDarkDragon10 != 0)
+        {
+            this.gameObject.SetActive(true);
+            StartCoroutine(WaitAndAttack(this.waitTime));
+            
+        }
+        else if (PersistentData.singleton.lifePointsDarkDragon10 == 0)
         {
             StartCoroutine(this.DieThenDisappearDarkDragon(this.dieWaitTime));
         }
-        else
-        {
-            yield return new WaitForSeconds(waitTime);
-            this.animatorMonster.Play("idle");
-            this.boxColliderDragon.size = new Vector3(this.xStartBoxCollider, this.yStartBoxCollider, 2f);
-        }
+    }
+    public override IEnumerator WaitAndAttack(float waitTime)
+    {
+         yield return new WaitForSeconds(waitTime);
+         this.animatorMonster.Play("idle");
+         this.boxColliderDragon.size = new Vector3(this.xStartBoxCollider, this.yStartBoxCollider, 2f);
+            
+        
     }
     public void AffectSkills(Collision collision)
     {
