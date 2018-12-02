@@ -15,7 +15,6 @@ public class Player : MonoBehaviour
     MyDelegate myDelegate;
     public GameObject[] dragons;
     public int dragonsDead;
-    public string gameSceneString;
     private float waitTime;
     void Start()
     {
@@ -26,7 +25,7 @@ public class Player : MonoBehaviour
         jumpForce = 2.5f;
         boxColliderPlayer = GetComponent<BoxCollider>();
         dragonsDead = 0;
-        gameSceneString = " ";
+        
         waitTime = 30f;
     }
     
@@ -65,6 +64,10 @@ public class Player : MonoBehaviour
         {
             myDelegate("jump");
         }
+        else if(Input.GetKey(KeyCode.E))
+        {
+            myDelegate("escape");
+        }
         if (this.transform.position.y >= .1)
         {
             rigidBodyPlayer.useGravity = true;
@@ -81,15 +84,13 @@ public class Player : MonoBehaviour
         dragonsDead = Game2();
         if(dragonsDead==10)
         {
-            gameSceneString = "Game2";
             SceneManager.LoadScene("Game2");
-           
         }
-        if(dragonsDead==4&&gameSceneString=="Game2")
+        dragonsDead = Game2();
+        if (dragonsDead==4)
         {
             SceneManager.LoadScene("Won");
         }
-        
     }
     public void OnCollisionEnter(Collision collision)
     {
@@ -185,13 +186,33 @@ public class Player : MonoBehaviour
             boxColliderPlayer.size = new Vector3(1.75f, 2f, 1.75f);
             boxColliderPlayer.center = new Vector3(0.5f, 1.5f, 0.5f);
         }
-        else if(input=="jump")
+        else if (input == "jump")
         {
             animationPlayer.Play("jump");
             rigidBodyPlayer.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
         }
+        else if (input == "escape")
+        {
+            GameObject knowWhichScene;
+            knowWhichScene = GameObject.Find("GameSave1");
+            if (knowWhichScene == null)
+            {
+                knowWhichScene = GameObject.Find("GameSave2");
+            }
+            if (knowWhichScene.name == "GameSave1")
+            {
+                this.transform.position = new Vector3(10.24219f,0f,-6.04727f);
+                this.transform.eulerAngles = new Vector3(0f,-1.927f,0f);
+            }
+            else if(knowWhichScene.name == "GameSave2")
+            {
+                this.transform.position = new Vector3(35.6f,0f,56.8f);
+                this.transform.eulerAngles = new Vector3(0f,-1.927f,0f);
+            }
+        }
     }
-        int Game2()
+
+    int Game2()
         {
         int j = 0;
         for(int i=0; i<dragons.Length;i++)
@@ -203,6 +224,7 @@ public class Player : MonoBehaviour
         }
         return j;
         }
+
     public IEnumerator DieThenDisappear(float waitTime)
     {
         this.animationPlayer.Play("death");
