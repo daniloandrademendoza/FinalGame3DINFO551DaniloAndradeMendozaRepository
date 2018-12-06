@@ -13,9 +13,8 @@ public class Player : MonoBehaviour
     private BoxCollider boxColliderPlayer;
     delegate void MyDelegate(string input);
     MyDelegate myDelegate;
-    public GameObject[] dragons;
-    public int dragonsDead;
     private float waitTime;
+    public GameObject[] dragons;
     void Start()
     {
         rigidBodyPlayer = GetComponent<Rigidbody>();
@@ -24,8 +23,6 @@ public class Player : MonoBehaviour
         animationPlayer = GetComponent<Animation>();
         jumpForce = 2.5f;
         boxColliderPlayer = GetComponent<BoxCollider>();
-        dragonsDead = 0;
-        
         waitTime = 30f;
     }
     
@@ -81,13 +78,11 @@ public class Player : MonoBehaviour
             boxColliderPlayer.size = new Vector3(.75f, 1.9f, .75f);
             boxColliderPlayer.center = new Vector3(0f, .95f, 0f);
         }
-        dragonsDead = Game2();
-        if(dragonsDead==10)
+        if(PersistentData.singleton.lifePointsDarkDragon1 == 0 && PersistentData.singleton.lifePointsDarkDragon2 == 0 && PersistentData.singleton.lifePointsDarkDragon3 == 0 && PersistentData.singleton.lifePointsDarkDragon4 == 0 && PersistentData.singleton.lifePointsDarkDragon5 == 0 && PersistentData.singleton.lifePointsDarkDragon6 == 0 && PersistentData.singleton.lifePointsDarkDragon7 == 0 && PersistentData.singleton.lifePointsDarkDragon8 == 0 && PersistentData.singleton.lifePointsDarkDragon9 == 0 && PersistentData.singleton.lifePointsDarkDragon10 == 0)
         {
             SceneManager.LoadScene("Game2");
         }
-        dragonsDead = Game2();
-        if (dragonsDead==4)
+        if (PersistentData.singleton.lifePointsBlueDragon == 0 && PersistentData.singleton.lifePointsRedDragon == 0 && PersistentData.singleton.lifePointsGreenDragon == 0 && PersistentData.singleton.lifePointsPurpleDragon == 0)
         {
             SceneManager.LoadScene("Won");
         }
@@ -212,18 +207,6 @@ public class Player : MonoBehaviour
         }
     }
 
-    int Game2()
-        {
-        int j = 0;
-        for(int i=0; i<dragons.Length;i++)
-        {
-            if(dragons[i].activeInHierarchy==false)
-            {
-                j++;
-            }
-        }
-        return j;
-        }
 
     public IEnumerator DieThenDisappear(float waitTime)
     {
