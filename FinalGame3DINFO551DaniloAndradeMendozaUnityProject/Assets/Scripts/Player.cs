@@ -80,11 +80,17 @@ public class Player : MonoBehaviour
         }
         if(PersistentData.singleton.lifePointsDarkDragon1 == 0 && PersistentData.singleton.lifePointsDarkDragon2 == 0 && PersistentData.singleton.lifePointsDarkDragon3 == 0 && PersistentData.singleton.lifePointsDarkDragon4 == 0 && PersistentData.singleton.lifePointsDarkDragon5 == 0 && PersistentData.singleton.lifePointsDarkDragon6 == 0 && PersistentData.singleton.lifePointsDarkDragon7 == 0 && PersistentData.singleton.lifePointsDarkDragon8 == 0 && PersistentData.singleton.lifePointsDarkDragon9 == 0 && PersistentData.singleton.lifePointsDarkDragon10 == 0)
         {
-            SceneManager.LoadScene("Game2");
+            if (Input.GetKey(KeyCode.Alpha2))
+            {
+                SceneManager.LoadScene("Game2");
+            }
         }
         if (PersistentData.singleton.lifePointsBlueDragon == 0 && PersistentData.singleton.lifePointsRedDragon == 0 && PersistentData.singleton.lifePointsGreenDragon == 0 && PersistentData.singleton.lifePointsPurpleDragon == 0)
         {
-            SceneManager.LoadScene("Won");
+            if (Input.GetKey(KeyCode.W))
+            {
+                SceneManager.LoadScene("Won");
+            }
         }
     }
     public void OnCollisionEnter(Collision collision)
